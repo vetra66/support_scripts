@@ -21,37 +21,29 @@ foreach $element (@data)
 	{
 		push(@error,$element);
 	}
-
 ## FATAL encountered in the logs
-
 	if ($element =~ /FATAL/)
 	{
     push(@fatal,$element);
 	}
-
 }
-
 foreach $rec(@fatal)
 {
-chomp($rec);
-#print $rec;
-
+  chomp($rec);
   if($rec =~ m/Failed to start namenode/)
-	{
-	   print "Failed to start the namenode\n";
-     print $rec;
-	}
-
-	if($rec =~ m/flush failed for required journal/)
-	{
+  {
+    print "Failed to start the namenode\n";
+    print $rec;
+   }
+  if($rec =~ m/flush failed for required journal/)
+  {
     print "Flush failed,not able to get the required Journal \n";
     print $rec;
-	  print "\n";
+    print "\n";
   }
-
-	elsif($rec =~ m/Exception in namenode join/)
-	{
-	   print "Exception in namenode join\n";
-	   print "$rec";
-	}
+  elsif($rec =~ m/Exception in namenode join/)
+  {
+    print "Exception in namenode join\n";
+    print "$rec";
+  }
 }
