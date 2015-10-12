@@ -32,8 +32,7 @@ if(@error!=0)
 {
   print "ERRORS ENCOUNTERED IN THE LOGS: \n";
   print "====================================\n";
-  print "@error";
-  print "\n ================================== \n";
+  print "@error\n\n";
 }
 
 foreach $rec(@fatal)
@@ -54,8 +53,12 @@ chomp($rec);
 	{
 	  push(@fail3,$rec);
 	}
+	elsif($rec =~ m/Error in dispatcher thread/)
+	{
+	  push(@fail4,$rec);
+        }
 }
-if(@fail1!=0|@fail2!=0|@fail3!=0)
+if(@fail1!=0|@fail2!=0|@fail3!=0|@fail4!=0)
 {
   print "\n FATAL ERRORS ENCOUNTERED \n";
    print "===============================\n";
@@ -75,4 +78,9 @@ if(@fail3!=0)
 {
    print "Exception in namenode join\n\n";
    print "@fail3\n";
+}
+if(@fail4!=0)
+{
+   print "ERROR IN DISPATCHER THREAD\n";
+   print "@fail4\n";
 }
