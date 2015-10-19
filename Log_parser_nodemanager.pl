@@ -8,22 +8,22 @@ GetOptions(
 	'file=s' => \$file
 	) or die "Usage: $0 --file NAME \n";
 
-open INFILE, "$file" ;
-my @data = <INFILE> ;
+open INFILE, "$file" ; 
+my @data = <INFILE> ; 
 chomp @data;
 
-foreach $element (@data)
+foreach $element (@data) 
 {
-## Searching for error patterns
-       if (($element =~ m/error/)| ($element =~ m/ERROR/))
+## Searching for error patterns	
+       if (($element =~ m/error/)| ($element =~ m/ERROR/)) 
 	{
 		push(@error,$element);
 	}
-## FATAL encountered in the logs
-	if ($element =~ /FATAL/)
+## FATAL encountered in the logs	
+	if ($element =~ /FATAL/)    
 	{
            push(@fatal,$element);
-	}
+	}	          
 }
 
 ## print the error logs if any
@@ -32,13 +32,14 @@ if(@error!=0)
 {
   print "ERRORS ENCOUNTERED IN THE LOGS: \n";
   print "====================================\n";
-  print "@error\n\n";
+  print join("\n",@error),"\n";
+
 }
 
 foreach $rec(@fatal)
 {
 chomp($rec);
-
+  
     if($rec =~ m/Failed to start namenode/)
 	{
 	   push(@fail1,$rec);
@@ -58,6 +59,8 @@ chomp($rec);
 	  push(@fail4,$rec);
         }
 }
+
+print Dumper (@fail2);
 if(@fail1!=0|@fail2!=0|@fail3!=0|@fail4!=0)
 {
   print "\n FATAL ERRORS ENCOUNTERED \n";
