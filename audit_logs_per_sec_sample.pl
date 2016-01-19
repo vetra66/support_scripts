@@ -2,7 +2,8 @@
 
 use Data::Dumper;
 
-$log="/Users/singla/Downloads/NN.audit-log.102815";
+$log=$ARGV[1];
+
 @arr= `cut -d " " -f 2 $log | cut -d "," -f 1 | uniq -c`;
 chomp(@arr);
 #print Dumper (@arr);
